@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sora: "Sora", sans-serif;
+  --font-code: "Source Code Pro", monospace;
+  --font-grotesk: "Space Grotesk", sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%; 
+}
+
+body {
+  @apply font-sans bg-n-8 text-n-1 text-base;
+}
+
+.logo {
+  filter: brightness(1.5) contrast(1.2);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.logo:hover {
+  filter: brightness(2) contrast(1.3);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Utility classes for rotation */
+@layer utilities {
+  .rotate-45 {
+    @apply rotate-[45deg];
+  }
+
+  .rotate-90 {
+    @apply rotate-[90deg];
+  }
+
+  .rotate-135 {
+    @apply rotate-[135deg];
+  }
+
+  .rotate-180 {
+    @apply rotate-[180deg];
+  }
+
+  .rotate-225 {
+    @apply rotate-[225deg];
+  }
+
+  .rotate-270 {
+    @apply rotate-[270deg];
+  }
+
+  .rotate-315 {
+    @apply rotate-[315deg];
+  }
+
+  .rotate-360 {
+    @apply rotate-[360deg];
+  }
+
+  .-rotate-45 {
+    @apply rotate-[-45deg];
+  }
+
+  .-rotate-90 {
+    @apply rotate-[-90deg];
+  }
+
+  .-rotate-135 {
+    @apply rotate-[-135deg];
+  }
+
+  .-rotate-180 {
+    @apply rotate-[-180deg];
+  }
+
+  .-rotate-225 {
+    @apply rotate-[-225deg];
+  }
+
+  .-rotate-270 {
+    @apply rotate-[-270deg];
+  }
+
+  .-rotate-315 {
+    @apply rotate-[-315deg];
+  }
+
+  .-rotate-360 {
+    @apply rotate-[-360deg];
+  }
+
+  /* Colors */
+  .bg-n-8 {
+    background-color: #333333; 
+  }
+
+  .text-n-1 {
+    color: #FFFFFF; 
+  }
+}
+
+
+.bg-gradient {
+  background: url(./assets/hero/hero-background.jpg), 
+  radial-gradient(circle, #ff7eb3, #ff758c, #ff7168, #ff6d46, #ff6c29);
+  background-size: contain;
+  background-blend-mode: hard-light; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; 
+}
+
+
+#particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; 
+}
+
+
+.card {
+  background: url(./assets/roadmap/hero.png), #ffffff;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 80px 80px;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 10; 
+}
+
+
+.signup-form-container {
+  @apply bg-white p-6 rounded-lg shadow-md w-96;
+  position: relative;
+  z-index: 10; 
+}
+
+.signup-page-container {
+  @apply flex items-center justify-center min-h-screen bg-n-8;
+}
+
+.signup-heading {
+  @apply text-xl font-semibold mb-4 text-n-1;
+}
+
+.signup-label {
+  @apply block text-sm font-medium text-n-1;
+}
+
+.signup-input {
+  @apply mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-n-1 text-sm;
+}
+
+.signup-button {
+  @apply mt-6 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700;
+}
+
+.back-home-button {
+  @apply mt-4 bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700;
+}
