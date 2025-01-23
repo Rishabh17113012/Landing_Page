@@ -23,12 +23,17 @@ const LoginPage = () => {
       if (response.data.message === "Login successful") {
         alert("Login successful");
         navigate("/"); 
-      } else {
-        alert(response.data.message || "Login failed");
       }
     } catch (err) {
-      console.error("Login error:", err);
-      alert("Please try again");
+      // Handle errors based on the server's response
+      if (err.response) {
+        // Display error message sent from the backend
+        alert(err.response.data.message || "Login failed");
+      } else {
+        // Handle other errors, such as network issues
+        console.error("Login error:", err);
+        alert("An error occurred. Please try again.");
+      }
     }
   };
 

@@ -30,8 +30,13 @@ const SignupPage = () => {
         alert(response.data.message || "Registration failed");
       }
     } catch (err) {
-      console.error("Signup error:", err);
-      alert("An error occurred. Please try again.");
+      // Handle errors from the backend
+      if (err.response) {
+        alert(err.response.data.message || "An error occurred during registration.");
+      } else {
+        console.error("Signup error:", err);
+        alert("An error occurred. Please try again.");
+      }
     }
   };
 
