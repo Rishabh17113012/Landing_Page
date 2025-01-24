@@ -20,7 +20,7 @@ const SignupPage = () => {
     }
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, { name, email, password });
+      const response = await axios.post("http://localhost:3001/register", { name, email, password });
       console.log(response.data);
 
       if (response.data.message === "User registered successfully") {
