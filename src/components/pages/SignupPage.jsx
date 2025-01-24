@@ -20,7 +20,7 @@ const SignupPage = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/register", { name, email, password });
+      const response = await axios.post("https://backend-oq4v.onrender.com/register", { name, email, password });
       console.log(response.data);
 
       if (response.data.message === "User registered successfully") {
