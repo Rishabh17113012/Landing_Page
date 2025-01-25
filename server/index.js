@@ -6,19 +6,26 @@ const cors = require("cors");
 const UserModel = require("./models/Users");
 const bcrypt = require("bcrypt");
 const MONGO_URI = process.env.MONGO_URI;
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT ;
 const CLIENT_URL = process.env.CLIENT_URL
 const API_BASE_URL=process.env.API_BASE_URL
 
 const app = express();
-app.use(express.json());
+
+
 app.use(
   cors({
-    origin: [CLIENT_URL, API_BASE_URL],
+    origin: [CLIENT_URL, API_BASE_URL], 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'], 
     credentials: true, 
   })
 );
+
+
+app.options('*', cors());
+
+app.use(express.json());
 
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
