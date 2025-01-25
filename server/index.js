@@ -6,27 +6,41 @@ const cors = require("cors");
 const UserModel = require("./models/Users");
 const bcrypt = require("bcrypt");
 const MONGO_URI = process.env.MONGO_URI;
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT || 3001;
 const CLIENT_URL = process.env.CLIENT_URL
-const API_BASE_URL=process.env.API_BASE_URL
+const API_BASE_URL = process.env.API_BASE_URL;
 
 const app = express();
 
+// CORS Middleware - Place this before any routes
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', CLIENT_URL); // Explicitly set the origin header
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Set allowed methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Set allowed headers
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
+  
+  // Handle preflight requests (OPTIONS)
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end(); // No Content response
+  }
+  
+  next(); // Continue with the next middleware/route handler
+});
 
+// Existing middleware
+app.use(express.json());
+
+// CORS configuration using 'cors' library (ensure the origin matches the correct URLs)
 app.use(
   cors({
-    origin: [CLIENT_URL, API_BASE_URL], 
+    origin: [CLIENT_URL, API_BASE_URL], // Ensure the URLs are correct in the environment variables
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'], 
-    credentials: true, 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Allow credentials (cookies)
   })
 );
 
-
-app.options('*', cors());
-
-app.use(express.json());
-
+// MongoDB connection
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
@@ -82,6 +96,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
