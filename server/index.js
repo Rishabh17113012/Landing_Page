@@ -5,35 +5,22 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const UserModel = require("./models/Users");
 const bcrypt = require("bcrypt");
+
 const MONGO_URI = process.env.MONGO_URI;
-const PORT = process.env.PORT || 3001;
-const CLIENT_URL = process.env.CLIENT_URL
+const PORT = process.env.PORT || 3000;
+const CLIENT_URL = process.env.CLIENT_URL;
 const API_BASE_URL = process.env.API_BASE_URL;
+
+if (!MONGO_URI || !CLIENT_URL) {
+  throw new Error('Required environment variables are missing.');
+}
 
 const app = express();
 
-// CORS Middleware - Place this before any routes
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', CLIENT_URL); // Explicitly set the origin header
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Set allowed methods
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Set allowed headers
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
-  
-  // Handle preflight requests (OPTIONS)
-  if (req.method === 'OPTIONS') {
-    return res.status(204).end(); // No Content response
-  }
-  
-  next(); // Continue with the next middleware/route handler
-});
-
-// Existing middleware
-app.use(express.json());
-
-// CORS configuration using 'cors' library (ensure the origin matches the correct URLs)
+// CORS Middleware using 'cors' library
 app.use(
   cors({
-    origin: [CLIENT_URL, API_BASE_URL], // Ensure the URLs are correct in the environment variables
+    origin: CLIENT_URL, // Only allow this client URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Allow credentials (cookies)
@@ -57,10 +44,11 @@ app.post("/register", async (req, res) => {
 
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(409).json({ message: "User already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const saltRounds = process.env.NODE_ENV === 'production' ? 12 : 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newUser = await UserModel.create({ name, email, password: hashedPassword });
 
     res.status(201).json({ message: "User registered successfully" });
@@ -96,7 +84,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Start server
+// Start server with error handling
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+}).on('error', (err) => {
+  console.error('Failed to start server:', err);
 });
