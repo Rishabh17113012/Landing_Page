@@ -5,6 +5,11 @@ import { loadFull } from "tsparticles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const api = axios.create({
+  baseURL: "https://backend-oq4v.onrender.com", 
+  withCredentials: true, 
+});
+
 const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
