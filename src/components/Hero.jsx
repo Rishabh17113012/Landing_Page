@@ -7,7 +7,7 @@ import { ScrollParallax } from "react-just-parallax";
 import { useRef } from "react";
 import Generating from "./Generating";
 import Notification from "./Notification";
-import CompanyLogos from "./CompanyLogos";
+import CompanyLogos from "./Companylogos";
 
 const Hero = () => {
   const parallaxRef = useRef(null);
