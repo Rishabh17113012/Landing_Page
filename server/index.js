@@ -8,12 +8,13 @@ const bcrypt = require("bcrypt");
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 3001;
 const CLIENT_URL = process.env.CLIENT_URL
+const API_BASE_URL=process.env.API_BASE_URL
 
 const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: CLIENT_URL,API_BASE_URL,
     credentials: true,
   })
 );
