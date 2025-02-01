@@ -18,14 +18,27 @@ if (!MONGO_URI || !CLIENT_URL) {
 const app = express();
 
 // CORS Middleware using 'cors' library
+const allowedOrigins = [
+  'https://landing-page-frontend-tit0.onrender.com',
+  'https://landing-page-drab-delta.vercel.app',
+  'https://landing-page-atc.vercel.app'
+];
+
 app.use(
   cors({
-    origin: CLIENT_URL, // Only allow this client URL
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, origin);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, // Allow credentials (cookies)
+    credentials: true, // Allow cookies/auth headers
   })
 );
+
 
 // MongoDB connection
 mongoose
