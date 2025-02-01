@@ -12,16 +12,20 @@ const CLIENT_URL = process.env.CLIENT_URL;
 const API_BASE_URL = process.env.API_BASE_URL;
 
 if (!MONGO_URI || !CLIENT_URL) {
-  throw new Error('Required environment variables are missing.');
+  throw new Error("Required environment variables are missing.");
 }
 
 const app = express();
 
-// CORS Middleware using 'cors' library
+// Middleware for parsing JSON requests
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Define allowed origins for CORS
 const allowedOrigins = [
-  'https://landing-page-frontend-tit0.onrender.com',
-  'https://landing-page-drab-delta.vercel.app',
-  'https://landing-page-atc.vercel.app'
+  "https://landing-page-frontend-tit0.onrender.com",
+  "https://landing-page-drab-delta.vercel.app",
+  "https://landing-page-atc.vercel.app",
 ];
 
 app.use(
@@ -30,23 +34,22 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, origin);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, // Allow cookies/auth headers
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
-
-// MongoDB connection
+// Connect to MongoDB
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Register Route
+// User Registration Route
 app.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -60,7 +63,7 @@ app.post("/register", async (req, res) => {
       return res.status(409).json({ message: "User already exists" });
     }
 
-    const saltRounds = process.env.NODE_ENV === 'production' ? 12 : 10;
+    const saltRounds = process.env.NODE_ENV === "production" ? 12 : 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newUser = await UserModel.create({ name, email, password: hashedPassword });
 
@@ -71,7 +74,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Login Route
+// User Login Route
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -97,9 +100,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Start server with error handling
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-}).on('error', (err) => {
-  console.error('Failed to start server:', err);
+}).on("error", (err) => {
+  console.error("Failed to start server:", err);
 });
