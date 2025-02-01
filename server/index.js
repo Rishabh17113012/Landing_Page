@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 3000;
-const CLIENT_URL = process.env.CLIENT_URL || 'https://landing-page-frontend-tit0.onrender.com'|| 'https://landing-page-drab-delta.vercel.app';
+const CLIENT_URL = process.env.CLIENT_URL;
 const API_BASE_URL = process.env.API_BASE_URL;
 
 if (!MONGO_URI || !CLIENT_URL) {
