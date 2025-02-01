@@ -10,6 +10,7 @@ export default defineConfig({
     historyApiFallback: true 
   },
   build: {
+    outDir: 'dist',
     chunkSizeWarningLimit: 1000, 
     rollupOptions: {
       output: {
