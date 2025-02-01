@@ -15,7 +15,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://backend-oq4v.onrender.com/login", { email, password });
+      const response = await axios.post("https://landing-page-backend-aks4.onrender.com/login", { email, password });
 
      
       console.log("Login response:", response.data);

@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const api = axios.create({
-  baseURL: "https://backend-oq4v.onrender.com", 
+  baseURL: "https://landing-page-backend-aks4.onrender.com", 
   withCredentials: true, 
 });
 
@@ -25,7 +25,7 @@ const SignupPage = () => {
     }
 
     try {
-      const response = await axios.post("https://backend-oq4v.onrender.com/register", { name, email, password });
+      const response = await axios.post("https://landing-page-backend-aks4.onrender.com/register", { name, email, password });
       console.log(response.data);
 
       if (response.data.message === "User registered successfully") {
