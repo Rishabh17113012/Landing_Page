@@ -183,3 +183,90 @@ body {
 .back-home-button {
   @apply mt-4 bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700;
 }
+/* src/pages/Chatbot.css */
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+.chat-window {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: white;
+}
+
+.bot {
+  align-self: flex-start;
+  background-color: #e0e0e0;
+}
+
+.message img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.input-area {
+  display: flex;
+  padding: 10px;
+  background-color: white;
+  border-top: 1px solid #ccc;
+}
+
+input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .message {
+    max-width: 90%;
+  }
+  
+  input {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}

@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App.jsx";
 import LoginPage from "./components/pages/LoginPage.jsx";
 import SignupPage from "./components/pages/SignupPage.jsx";
+import Chatbot from "./components/pages/Chatbot.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/chatbot" element={<Chatbot />} />
       </Routes>
     </Router>
   </StrictMode>

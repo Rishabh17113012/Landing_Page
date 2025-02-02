@@ -9,19 +9,18 @@ const bcrypt = require("bcrypt");
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 3000;
 const CLIENT_URL = process.env.CLIENT_URL;
-const API_BASE_URL = process.env.API_BASE_URL;
 
 if (!MONGO_URI || !CLIENT_URL) {
   throw new Error("Required environment variables are missing.");
 }
 
-const app = express();
+const app = express(); // ✅ Declare `app` first
 
-// Middleware for parsing JSON requests
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Define allowed origins for CORS
+// CORS Configuration
 const allowedOrigins = [
   "https://landing-page-frontend-tit0.onrender.com",
   "https://landing-page-drab-delta.vercel.app",
@@ -42,6 +41,10 @@ app.use(
     credentials: true,
   })
 );
+
+// ✅ Import chatbot routes AFTER declaring `app`
+const chatbotRoutes = require("./chatbot");
+app.use("/api", chatbotRoutes);
 
 // Connect to MongoDB
 mongoose

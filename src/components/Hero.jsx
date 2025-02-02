@@ -39,7 +39,7 @@ const Hero = () => {
             Unleash the power of AI within ATC. Upgrade your productivity
             with ATC, the open AI chat app.
           </p>
-          <Button href="/pricing" white>
+          <Button href="/chatbot" white>
             Get started
           </Button>
         </div>
