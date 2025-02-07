@@ -13,13 +13,26 @@ const Chatbot = () => {
 
   // Listen to changes in system color scheme preference
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = (e) => setIsDarkMode(e.matches);
-
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    const script = document.createElement("script");
+    script.src = "https://cdn.botpress.cloud/webchat/v2.2/inject.js";
+    script.async = true;
+    document.body.appendChild(script);
+  
+    script.onload = () => {
+      window.botpress.init({
+        botId: "7f386455-a76e-4647-b8f2-9d2f4a6d796a",
+        clientId: "d58d7a5f-82c7-44d5-8533-83e5aafc9e65",
+        configuration: {
+          themeMode: isDarkMode ? "dark" : "light"
+        }
+      });
+    };
+  
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
+  
 
   // Toggle the theme between light and dark mode and save it in local storage
   const toggleTheme = () => {
