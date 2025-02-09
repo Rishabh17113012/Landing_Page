@@ -42,10 +42,6 @@ app.use(
   })
 );
 
-// ✅ Import chatbot routes AFTER declaring `app`
-const chatbotRoutes = require("./chatbot");
-app.use("/api", chatbotRoutes);
-
 // Connect to MongoDB
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
