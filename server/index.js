@@ -23,8 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 // CORS Configuration
 const allowedOrigins = [
   "https://landing-page-frontend-tit0.onrender.com",
+  "https://landing-page-topaz-seven-67.vercel.app", 
+  "http://localhost:3000",
   "https://landing-page-drab-delta.vercel.app",
-  "https://landing-page-atc.vercel.app",
 ];
 
 app.use(
